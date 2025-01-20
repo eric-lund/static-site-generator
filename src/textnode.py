@@ -11,10 +11,8 @@ class TextType(Enum):
 
 class TextNode:
     def __init__(self, text, text_type, url = None):
-        if text_type.upper() not in TextType.__members__:
-            raise ValueError(f"{text_type} is not a valid TextType.  Valid options are: {list(TextType.__members__.keys())}")
         self.text = text
-        self.text_type = TextType[text_type.upper()]  # convert to an enum member
+        self.text_type = text_type
         self.url = url
 
 
