@@ -25,7 +25,7 @@ class HTMLNode:
 class LeafNode(HTMLNode):
     def __init__(self, tag, value, props=None):
         # We need to explicity pass Children=None, because LeafNode should never have children
-        super().__init__(tag = tag, value = value, children=None, props=props)
+        super().__init__(tag=tag, value=value, children=None, props=props)
     
     def to_html(self):
         if not self.value:
@@ -38,3 +38,31 @@ class LeafNode(HTMLNode):
             return f"<{self.tag}>{self.value}</{self.tag}>"
         
         return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
+    
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props=None):
+        # tag and children are required
+        # No value and props is optional
+        super().__init__(tag=tag, value=None, children=children, props=props)
+
+
+    def to_html(self):
+
+        if self.tag is None:
+            raise ValueError("Tag is missing")
+        
+        if self.children is None:
+            raise ValueError("Child parameter is missing")
+        
+        if self.children == []:
+            return f"<{self.tag}></{self.tag}>"
+           
+        # capture all of the HTML strings in a list to iterate over later
+        # use recursion to process each child
+        child_html = ""
+        for child in self.children:
+            if isinstance(child, HTMLNode):
+                child_html += (child.to_html())
+            else:
+                raise TypeError
+        return f"<{self.tag}>{child_html}</{self.tag}>"
