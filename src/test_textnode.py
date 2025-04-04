@@ -3,7 +3,7 @@ from transformations.text_to_html import text_node_to_html_node
 from transformations.split_node_delimiter import split_nodes_delimiter
 from textnode import TextNode, TextType
 
-class TextTextNode(unittest.TestCase):
+class TestTextNode(unittest.TestCase):
     def test_eq1(self):
         node = TextNode("This is a text node", TextType.BOLD)
         node2 = TextNode("This is a text node", TextType.BOLD)
